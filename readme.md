@@ -1,24 +1,50 @@
-This repository is no longer maintained, as Gym is not longer maintained and all future maintenance of it will occur in the replacing [Gymnasium](https://github.com/Farama-Foundation/Gymnasium) library. You can contribute Gymnasium examples to the Gymnasium repository and docs directly if you would like to. If you'd like to learn more about the transition from Gym to Gymnasium, you can read more about it [here](https://farama.org/Announcing-The-Farama-Foundation).
+# Trading Environments
+This repository contains Gymnasium-based environments to simulate a market for the purpose of training a reinforcement learning agent.
 
-# Gym Examples
-Some simple examples of Gym environments and wrappers.
-For some explanations of these examples, see the [Gym documentation](https://gymnasium.farama.org).
+# How to Use
+You must install this environment and then you can use it like any other Gymnasium environment, which is roughly similar to Gym > 0.21.
 
-### Environments
-This repository hosts the examples that are shown [on the environment creation documentation](https://gymnasium.farama.org/tutorials/environment_creation/).
-- `GridWorldEnv`: Simplistic implementation of gridworld environment
+### Install
+* `git clone https://github.com/seerwright/trading_environments.git`
+* `pip install -e trading_environments`
+* Check installation with `pip list | grep trading_`
 
-### Wrappers
-This repository hosts the examples that are shown [on wrapper documentation](https://gymnasium.farama.org/api/wrappers/).
-- `ClipReward`: A `RewardWrapper` that clips immediate rewards to a valid range
-- `DiscreteActions`: An `ActionWrapper` that restricts the action space to a finite subset
-- `RelativePosition`: An `ObservationWrapper` that computes the relative position between an agent and a target
-- `ReacherRewardWrapper`: Allow us to weight the reward terms for the reacher environment
+<br/>
 
-### Contributing
-If you would like to contribute, follow these steps:
-- Fork this repository
-- Clone your fork
-- Set up pre-commit via `pre-commit install`
+### Example Use
+
+Create a driver for the agent's training.
+
+``` python
+import gymnasium as gym
+import rl_trading.envs.trading_world
+
+env = gym.make("rl_trading/TradingWorld-v0", render_mode='human')
+obs = env.reset()
+
+
+while True:
+    # Take a random action
+    action = env.action_space.sample()
+    obs, reward, trunc, done, info = env.step(action)
+
+    # Render the game
+    env.render()
+
+    if done == True:
+        break
+
+env.close()
+
+```
+
+<br/>
+
+
+If you named the file above `trading_test.py`, for example, then you would simply run it with `python trading_test.py`. 
+
+
+# License
+This is not open source software. You may review the code in this repo, but you may not use it for commercial purposes or (re)distribute it or use it for personal trading. Please refer to the license.txt file in this repo for more information.
 
 PRs may require accompanying PRs in [the documentation repo](https://github.com/Farama-Foundation/Gymnasium/tree/main/docs).
