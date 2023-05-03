@@ -20,13 +20,13 @@ import gymnasium as gym
 import rl_trading.envs.trading_world
 
 env = gym.make("rl_trading/TradingWorld-v0", render_mode='human')
-obs = env.reset()
+observation = env.reset()
 
 
 while True:
     # Take a random action
     action = env.action_space.sample()
-    obs, reward, trunc, done, info = env.step(action)
+    observation, reward, terminated, truncated, info = env.step(action)
 
     # Render the game
     env.render()
