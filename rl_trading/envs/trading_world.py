@@ -2,12 +2,15 @@ import gymnasium as gym
 from gymnasium import spaces
 import pygame
 import numpy as np
-
+from enum import Enum
+class Actions(Enum):
+    sell = 0
+    buy = 1
 
 class TradingWorldEnv(gym.Env):
     metadata = {"render_modes": ["human", "rgb_array"], "render_fps": 4}
 
-    def __init__(self, render_mode=None, size=5):
+    def __init__(self, df, render_mode=None, size=5):
         self.size = size  # The size of the square grid
         self.window_size = 512  # The size of the PyGame window
 
